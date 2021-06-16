@@ -14,5 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('guest.welcome');
 });
+
+Auth::routes();
+
+Route::prefix('admin')->namespace('Admin')->middleware('auth')->name('admin.')
+    ->group(function(){
+        // Home Admin
+        Route::get('/', 'HomeController@index')->name('home');
+        // Resource Posts
+        Route::resource('/posts', 'PostController');
+    });
