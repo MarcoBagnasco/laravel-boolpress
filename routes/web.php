@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('guest.welcome');
-});
-
 Auth::routes();
 
 Route::prefix('admin')->namespace('Admin')->middleware('auth')->name('admin.')
@@ -26,3 +23,8 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->name('admin.')
         // Resource Posts
         Route::resource('/posts', 'PostController');
     });
+
+// Front Office 
+Route::get('{any?}', function () {
+    return view('guest.home');
+})->where('any', '.*');
