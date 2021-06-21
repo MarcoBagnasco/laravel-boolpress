@@ -12,11 +12,12 @@
         <h1>Our Posts</h1>
         <a class="btn btn-primary mb-5" href="{{route('admin.posts.create')}}">Create New Post</a>
 
-        <table class="table table-striped table-dark">
+        <table class="table table-striped table-dark mb-5">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Title</th>
+                    <th>Category</th>
                     <th colspan="3">Actions</th>
                 </tr>
             </thead>
@@ -25,6 +26,7 @@
                     <tr>
                         <td>{{$post->id}}</td>
                         <td>{{$post->title}}</td>
+                        <td>@if ($post->category) {{$post->category->name}}@endif</td>
                         <td>
                             <a class="btn btn-success" href="{{ route('admin.posts.show', $post->id) }}">SHOW</a>
                         </td>
@@ -43,5 +45,18 @@
                 @endforeach
             </tbody>
         </table>
+
+        <!-- Post Order by Category-->
+        <h2>Post by Categories</h2>
+        @foreach ($categories as $category)
+            <h3 class="mt-4">{{$category->name}}</h3>
+            @forelse ($category->posts as $post)
+                <h4>
+                    <a href="{{route('admin.posts.show', $post->id)}}">{{$post->title}}</a>
+                </h4>
+            @empty
+                No Posts. <a href="{{route('admin.posts.create')}}">Create New Post</a>
+            @endforelse
+        @endforeach
     </div>
 @endsection

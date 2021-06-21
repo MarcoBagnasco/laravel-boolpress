@@ -3,8 +3,15 @@
 @section('content')
     <div class="container">
         <h1>{{$post->title}}</h1>
-        <a class="btn btn-warning" href="{{route('admin.posts.edit', $post->id)}}">EDIT</a>
 
+        @if ($post->category)
+            <h3>Category: {{$post->category->name}}</h3>
+        @else
+            <h3>No Category</h3>
+        @endif
+
+
+        <a class="btn btn-warning" href="{{route('admin.posts.edit', $post->id)}}">EDIT</a>
         <p>{{$post->content}}</p>
 
         <a href="{{route('admin.posts.index')}}">Return to Archive</a>
