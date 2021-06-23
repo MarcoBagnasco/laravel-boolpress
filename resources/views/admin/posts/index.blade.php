@@ -46,17 +46,39 @@
             </tbody>
         </table>
 
-        <!-- Post Order by Category-->
-        <h2>Post by Categories</h2>
-        @foreach ($categories as $category)
-            <h3 class="mt-4">{{$category->name}}</h3>
-            @forelse ($category->posts as $post)
-                <h4>
-                    <a href="{{route('admin.posts.show', $post->id)}}">{{$post->title}}</a>
-                </h4>
-            @empty
-                No Posts. <a href="{{route('admin.posts.create')}}">Create New Post</a>
-            @endforelse
-        @endforeach
+        <div class="row">
+            <!-- Post Order by Category-->
+            <div class="col-md-6">
+                <h2>Post by Categories</h2>
+                @foreach ($categories as $category)
+                    <h3 class="mt-4">{{$category->name}}</h3>
+                    @forelse ($category->posts as $post)
+                        <h4>
+                            <a href="{{route('admin.posts.show', $post->id)}}">{{$post->title}}</a>
+                        </h4>
+                    @empty
+                        No Posts. <a href="{{route('admin.posts.create')}}">Create New Post</a>
+                    @endforelse
+                @endforeach
+            </div>
+            <div class="col-md-6">
+                <h2 class="mb-4">Tags</h2>
+                @foreach ($tags as $tag)
+                    <div>
+                        <h2 class="d-inline-block mb-3 mr-3"><span class="badge badge-primary">{{$tag->name}}</span></h2>
+                        @if(count($tag->posts) > 0)
+                            @foreach ($tag->posts as $post)
+                                <a href="{{route('admin.posts.show', $post->id)}}">{{$post->title}}</a>
+                                @if (!$loop->last)
+                                    <span class="ml-2 mr-2">-</span>
+                                @endif
+                            @endforeach
+                        @endif
+                    </div>
+                    {{-- <span class="d-inline-block mr-3"></span> --}}
+                @endforeach
+
+            </div>
+        </div>
     </div>
 @endsection
