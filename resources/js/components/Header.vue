@@ -1,11 +1,18 @@
 <template>
-    <header>
-        <a href="">BoolPress</a>
+    <header class="main-header">
+        <h1><a href="">BoolPress</a></h1>
 
         <nav>
-            <ul>
-                <li><a href="">Blog</a></li>
-                <li><a href="">About</a></li>
+            <ul class="links">
+                <li>
+                    <router-link :to="{name: 'home'}">Home</router-link>
+                </li>
+                <li>
+                    <router-link :to="{name: 'about'}">About</router-link>
+                </li>
+                <li>
+                    <router-link :to="{name: 'blog'}">Blog</router-link>
+                </li>
             </ul>
         </nav>
     </header>
@@ -18,5 +25,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.main-header{
+    background-color: #aaa;
+    text-align: center;
 
+    .links{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+
+        li{
+            list-style: none;
+            margin: 1rem;
+
+            .active{
+                color: #f00;
+            }
+        }
+    }
+}
 </style>
